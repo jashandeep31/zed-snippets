@@ -9,10 +9,12 @@ const Navbar = () => {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <div className="border-primary/50 border-dashed border-b py-3">
+    <div className="border-primary/50 border-dashed border-b py-3 ">
       <div className="container flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <h1 className={`text-lg font-bold text-primary `}>Zed Snippets</h1>
+          <Link href="/" className={`text-lg font-bold text-primary `}>
+            Zed Snippets
+          </Link>
           <div className="flex gap-4 items-center">
             <nav>
               <Link className="text-muted-foreground text-sm" href={"/"}>

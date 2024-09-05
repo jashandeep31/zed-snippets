@@ -12,7 +12,6 @@ export const getAllSnippetsArray = (dir: string): SnippetModel[] => {
       presentFiles = [];
       snippets.push(...getAllSnippetsArray(path.join(dir, item)));
     } else {
-      console.log(`first`);
       if (item.includes(".mdx") || item.includes(".json")) {
         presentFiles.push(item);
       }

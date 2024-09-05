@@ -35,12 +35,14 @@ export default async function page() {
             <Link
               key={snippet.slug}
               href={`/snippets/${snippet.slug}`}
-              className="border p-2 rounded block hover:border-primary  duration-300 bg-background"
+              className="border p-2 rounded  hover:border-primary  duration-300 bg-background h-full flex flex-col justify-between"
             >
-              <h2 className={cn(lora.className, "")}>{snippet.slug}</h2>
-              <p className="text-muted-foreground text-sm">
-                {snippet.description}
-              </p>
+              <div>
+                <h2 className={cn(lora.className, "")}>{snippet.slug}</h2>
+                <p className="text-muted-foreground text-sm">
+                  {snippet.description}
+                </p>
+              </div>
               <h3 className="text-muted-foreground flex items-center gap-1 text-sm font-medium mt-4">
                 <Code size={16} /> <span>{snippet.language}</span>
               </h3>

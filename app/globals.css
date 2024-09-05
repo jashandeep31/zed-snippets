@@ -105,7 +105,7 @@ pre [data-line] {
 }
 
 [data-rehype-pretty-code-figure] figcaption {
-  @apply mx-0 mt-4  py-0 pl-2 text-muted-foreground;
+  @apply mx-0 mt-10 py-0 pl-2 text-muted-foreground;
 }
 
 [data-line] {
@@ -113,11 +113,11 @@ pre [data-line] {
 }
 
 [data-rehype-pretty-code-title] {
-  @apply mt-2 px-4 pt-6 font-medium;
+  @apply mt-2 px-4  font-medium text-lg;
 }
 
 [data-rehype-pretty-code-title] + pre {
-  @apply mt-2;
+  @apply mt-0;
 }
 [data-highlighted-chars] span {
   @apply bg-muted;
@@ -127,34 +127,38 @@ pre [data-line] {
   @apply bg-zinc-900;
 }
 
-table {
-  @apply w-full;
+.mdx table {
+  @apply w-full mt-6;
 }
 
-tr {
+.mdx tr {
   @apply m-0 border-t p-0 even:bg-muted;
 }
 
-th {
+.mdx th {
   @apply border  px-4 py-2 text-left font-bold;
 }
 
-th[align="center"] {
+.mdx th[align="center"] {
   @apply text-center;
 }
 
-th[align="right"] {
+.mdx th[align="right"] {
   @apply text-right;
 }
 
-td {
+.mdx td {
   @apply border  px-4 py-2 text-left;
 }
 
-td[align="center"] {
+.mdx td[align="center"] {
   @apply text-center;
 }
 
-td[align="right"] {
+.mdx td[align="right"] {
   @apply text-right;
+}
+
+.mdx a {
+  @apply underline hover:text-primary duration-300;
 }

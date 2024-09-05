@@ -3,7 +3,7 @@ import * as z from "zod";
 // Define the schema for a single snippet
 const snippetSchema = z.object({
   prefix: z.string(),
-  body: z.array(z.string()),
+  body: z.union([z.string(), z.array(z.string())]),
   description: z.string().nullable().optional(),
 });
 
@@ -50,12 +50,10 @@ export const converters: Converter[] = [
         const rawSnippets = JSON.parse(value);
         const parsed = snippetsSchema.safeParse(rawSnippets); // Validate against the ZED schema
         if (!parsed.success) {
-          console.log(parsed.error);
           return false;
         }
         return true;
       } catch (error) {
-        console.log(error);
         return false;
       }
     },

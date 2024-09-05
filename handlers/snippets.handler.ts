@@ -29,15 +29,14 @@ export const getAllSnippets = async (): Promise<
       language: (frontmatter.language as string) ?? "",
     });
   }
-  console.log(`first`);
   return snippets;
 };
 
 const REHYPE_THEME_OPTIONS = {
-  // theme: "github-light",
-  theme: "aurora-x",
+  theme: "github-light",
+  // theme: "aurora-x",
   // theme: "dracula",
-  keepBackground: false,
+  keepBackground: true,
 };
 
 export const getSnippetBySlug = async (
@@ -106,6 +105,7 @@ export const getSnippetBySlug = async (
 
   const snippet = {
     ...tempSnippet,
+    name: (serializedMdx.frontmatter.name as string) ?? tempSnippet.name,
     code: serializedMdx,
   };
   return snippet;

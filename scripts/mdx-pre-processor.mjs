@@ -64,7 +64,7 @@ const snippetsMdxPreProcessor = async () => {
 
         Object.keys(snippets).forEach((key) => {
           searchQueries.push({
-            name: snippets[key].prefix,
+            name: snippets[key].prefix + " - " + tempSnippet.name,
             url: `/snippets/${tempSnippet.slug}#${snippets[key].prefix}`,
             description: snippets[key].description,
             type: "snippet",

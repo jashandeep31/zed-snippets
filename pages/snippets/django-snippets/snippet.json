@@ -1,0 +1,116 @@
+{
+  "Django Model class snippet": {
+    "prefix": "class Django Model",
+    "body": [
+      "class ${Name}(models.Model):",
+      "    $1",
+      "",
+      "    def __str__(self):",
+      "        return $2",
+      "",
+      "    def __unicode__(self):",
+      "        return $2",
+      ""
+    ],
+    "description": "Django Model class snippet"
+  },
+  "Model Admin": {
+    "prefix": "class Django ModelAdmin",
+    "body": [
+      "class ${Name}Admin(admin.ModelAdmin):",
+      "    list_display = ('$1',)",
+      "",
+      "admin.site.register(${Name}, ${Name}Admin)",
+      ""
+    ],
+    "description": "Model Admin"
+  },
+  "Blank and Null Field Properties": {
+    "prefix": "blank and null Djngo Field",
+    "body": ["blank=True, null=True"],
+    "description": "Blank and Null Field Properties"
+  },
+  "CharField": {
+    "prefix": "CharField",
+    "body": [
+      "${name} = models.CharField(max_length=${length}, ${blank=True, null=True})"
+    ],
+    "description": "CharField"
+  },
+  "Django ForeignKeyField snippet": {
+    "prefix": "ForeignKeyField",
+    "body": [
+      "${name} = models.ForeignKey('${TargetModel}', related_name='$1', on_delete=models.CASCADE)"
+    ],
+    "description": "Django ForeignKeyField snippet"
+  },
+  "Django override save() method of models": {
+    "prefix": "save method Django Override",
+    "body": [
+      "def save(self, *args, **kwargs):",
+      "   $1",
+      "   super(${ModelName}, self).save(*args, **kwargs) # Call the real save() method"
+    ],
+    "description": "Django override save() method of models"
+  },
+  "Django generic class based View": {
+    "prefix": "View",
+    "body": [
+      "class ${Name}View(View):",
+      "    def get(self, request, *args, **kwargs):",
+      "        return HttpResponse('GET request!')",
+      "",
+      "    def post(self, request, *args, **kwargs):",
+      "        return HttpResponse('POST request!')"
+    ],
+    "description": "Django generic class based View"
+  },
+  "Django generic ListView": {
+    "prefix": "ListView",
+    "body": [
+      "class ${ModelName}List(ListView):",
+      "    model = ${ModelName}",
+      "    context_object_name = '$1'",
+      "    template_name='$2'"
+    ],
+    "description": "Django generic ListView"
+  },
+  "Django generic DetailView": {
+    "prefix": "DetailView",
+    "body": [
+      "class ${ModelName}Detail(DetailView):",
+      "    model = ${ModelName}",
+      "    template_name='$2'"
+    ],
+    "description": "Django generic DetailView"
+  },
+  "Django get_context_data for generic views": {
+    "prefix": "get_context_data",
+    "body": [
+      "def get_context_data(self, **kwargs):",
+      "    context = super(${ViewName}, self).get_context_data(**kwargs)",
+      "    return context"
+    ],
+    "description": "Django get_context_data for generic views"
+  },
+  "__init__() method": {
+    "prefix": "__init__",
+    "body": ["__init__(self, *args, **kwargs):", "$1"],
+    "description": "__init__() method"
+  },
+  "Print Traceback": {
+    "prefix": "Traceback",
+    "body": ["import traceback; traceback.print_exc();"],
+    "description": "Print Traceback"
+  },
+  "PDB breakpoint": {
+    "prefix": "pdb",
+    "body": ["import pdb ; pdb.set_trace()"],
+    "description": "PDB breakpoint"
+  },
+  "IPDB breakpoint": {
+    "prefix": "ipdb",
+    "body": ["import ipdb ; ipdb.set_trace()"],
+    "description": "IPDB breakpoint"
+  }
+}
