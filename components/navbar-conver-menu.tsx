@@ -25,7 +25,7 @@ const NavbarConverterMenu = () => {
                   <ListItem
                     key={component.name}
                     title={component.name}
-                    href={`converter/` + component.slug}
+                    href={`/converter/` + component.slug}
                   >
                     {component.description}
                   </ListItem>

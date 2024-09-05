@@ -47,7 +47,7 @@ const Converter = () => {
 
   useEffect(() => {
     const converter = converters.find(
-      (c) => c.slug === pathname.replace("/converter/", "")
+      (c) => c.slug === pathname?.replace("/converter/", "")
     );
     if (converter) {
       setConverter(converter);

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import NavbarConverterMenu from "./navbar-conver-menu";
-import { Button } from "./ui/button";
 import { Search } from "lucide-react";
 
 const Navbar = () => {
