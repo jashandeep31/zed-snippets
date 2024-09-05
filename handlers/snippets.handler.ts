@@ -4,7 +4,7 @@ import { SnippetModel } from "./types";
 import fs from "fs";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemoteSerializeResult } from "next-mdx-remote/rsc";
-// import { visit } from "unist-util-visit";
+import { visit } from "unist-util-visit";
 import rehypePrettyCode from "rehype-pretty-code";
 
 const ROOT_DIR = path.join(process.cwd());
@@ -23,7 +23,6 @@ export const getAllSnippets = async (): Promise<
     const { frontmatter } = await serialize(mdx, {
       parseFrontmatter: true,
     });
-    console.log(frontmatter.description);
     snippets.push({
       ...snippet,
       description: (frontmatter.description as string) ?? "",
@@ -63,7 +62,44 @@ export const getSnippetBySlug = async (
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [],
-        rehypePlugins: [[rehypePrettyCode, REHYPE_THEME_OPTIONS]],
+        rehypePlugins: [
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          () => (tree: any) =>
+            visit(tree, (node) => {
+              if (node?.type === "element" && node?.tagName === "pre") {
+                const [codeEl] = node.children;
+                if (codeEl.tagName !== "code") {
+                  return;
+                }
+
+                let __title__ = "";
+                if (codeEl.data?.meta.includes("title=")) {
+                  const regex = /title="([^"]*)"/;
+                  const match = codeEl.data?.meta.match(regex);
+                  __title__ = match ? match[1] : "";
+                }
+
+                node.__title__ = __title__;
+              }
+            }),
+          [rehypePrettyCode, REHYPE_THEME_OPTIONS],
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          () => (tree: any) =>
+            visit(tree, (node) => {
+              if (node?.type === "element") {
+                if (!("data-rehype-pretty-code-figure" in node.properties)) {
+                  return;
+                }
+                const preElement = node.children.at(-1);
+                if (preElement.tagName !== "pre") {
+                  return;
+                }
+                if (node.__title__) {
+                  preElement.properties["__title__"] = node.__title__;
+                }
+              }
+            }),
+        ],
       },
     }
   );

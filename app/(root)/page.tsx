@@ -34,7 +34,7 @@ export default async function page() {
           {snippets.map((snippet) => (
             <Link
               key={snippet.slug}
-              href="/"
+              href={`/snippets/${snippet.slug}`}
               className="border p-2 rounded block hover:border-primary  duration-300 bg-background"
             >
               <h2 className={cn(lora.className, "")}>{snippet.slug}</h2>

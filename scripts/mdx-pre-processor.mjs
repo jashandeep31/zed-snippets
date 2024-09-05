@@ -19,6 +19,7 @@ const snippetMdxValidationSchema = z.object({
 
 const snippetsMdxPreProcessor = async () => {
   const validSnippets = [];
+  const searchQueries = [];
   const allSnippets = getSnippetsSchema(PAGES_DIR);
   for (const tempSnippet of allSnippets) {
     try {
@@ -41,11 +42,19 @@ const snippetsMdxPreProcessor = async () => {
           .join(PAGES_DIR, tempSnippet.slug)
           .replace("/pages", "/.pages");
         checkAndCreateDir(validateSnippetDir);
+        searchQueries.push({
+          name: tempSnippet.name,
+          url: `/snippets/${tempSnippet.slug}`,
+          description: serializedMdx.frontmatter.description,
+          type: "page",
+        });
 
         let newMdx = `${validateMdx}`;
         const snippets = JSON.parse(fs.readFileSync(tempSnippet.jsonFilePath));
 
-        newMdx = `
+        newMdx =
+          newMdx +
+          `\n
 <table>
   <tr>
     <th>Prefix</th>
@@ -54,10 +63,16 @@ const snippetsMdxPreProcessor = async () => {
 `;
 
         Object.keys(snippets).forEach((key) => {
+          searchQueries.push({
+            name: snippets[key].prefix,
+            url: `/snippets/${tempSnippet.slug}#${snippets[key].prefix}`,
+            description: snippets[key].description,
+            type: "snippet",
+          });
           newMdx =
             newMdx +
             `\n<tr>
-  <td>${snippets[key].prefix}</td>
+  <td><a href="#${snippets[key].prefix}">${snippets[key].prefix}</a></td>
   <td>${snippets[key].description}</td>
 </tr>`;
         });
@@ -76,11 +91,24 @@ ${JSON.stringify(snippets[key], null, 2)}
 `;
         });
         fs.writeFileSync(path.join(validateSnippetDir, "page.mdx"), newMdx);
-
-        // fs.writeFileSync(
-        //   tempSnippet.jsonFilePath,
-        //   path.join(validateSnippetDir, "snippet.json")
-        // );
+        fs.writeFileSync(
+          ROOT_DIR + "/lib/search-queries.ts",
+          `export const searchQueries:{name:string; url:string ; description:string ; type:"page"|"snippet"}[] = ${JSON.stringify(
+            // sorby type
+            searchQueries.sort((a, b) => {
+              if (a.type === "page" && b.type === "snippet") {
+                return -1; // "page" comes before "snippet"
+              } else if (a.type === "snippet" && b.type === "page") {
+                return 1; // "snippet" comes after "page"
+              }
+              return 0; // If both are the same, no change
+            })
+          )}`
+        );
+        fs.copyFileSync(
+          tempSnippet.jsonFilePath,
+          path.join(validateSnippetDir, "snippet.json")
+        );
       }
     } catch (e) {
       console.log(chalk.red.bgRed.bold(e.toString()));

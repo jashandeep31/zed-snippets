@@ -158,15 +158,23 @@ const components = (components: MDXComponents) => {
       />
     ),
 
-    pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
-      <pre
-        className={cn(
-          "mb-4 mt-6 overflow-x-auto rounded-lg border bg-black py-4",
-          className
-        )}
-        {...props}
-      />
-    ),
+    pre: ({
+      className,
+      __title__ = "",
+      ...props
+    }: React.HTMLAttributes<HTMLPreElement> & { __title__?: string }) => {
+      return (
+        <div id={__title__} className="scroll-m-24">
+          <pre
+            className={cn(
+              "mb-4 mt-6 overflow-x-auto rounded-lg border bg-black py-4 ",
+              className
+            )}
+            {...props}
+          />
+        </div>
+      );
+    },
     ...components,
   };
 };

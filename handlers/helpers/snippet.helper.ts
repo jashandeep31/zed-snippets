@@ -18,7 +18,7 @@ export const getAllSnippetsArray = (dir: string): SnippetModel[] => {
       }
     }
 
-    if (presentFiles.length >= 1) {
+    if (presentFiles.length >= 2) {
       const slug = path.join(dir, presentFiles[0], "..").split("/").pop();
       if (slug) {
         snippets.push({
