@@ -1,5 +1,5 @@
 import path from "path";
-// import { getAllSnippetsArray } from "./helpers/snippet.helper";
+import { getAllSnippetsArray } from "./helpers/snippet.helper";
 import { SnippetModel } from "./types";
 import fs from "fs";
 import { serialize } from "next-mdx-remote/serialize";
@@ -9,27 +9,28 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { allSnippets } from "@/lib/all-snippets";
 
 const ROOT_DIR = path.join(process.cwd());
-// const PAGES_DIR = path.join(ROOT_DIR, ".pages/snippets");
+const PAGES_DIR = path.join(ROOT_DIR, ".pages/snippets");
 
 export const getAllSnippets = async (): Promise<
   (SnippetModel & { description: string; language: string })[]
 > => {
   // const tempSnippets = allSnippets;
+  const tempSnippets = getAllSnippetsArray(PAGES_DIR);
 
-  // const snippets: (SnippetModel & { description: string; language: string })[] =
-  //   [];
+  const snippets: (SnippetModel & { description: string; language: string })[] =
+    [];
 
-  // for (const snippet of tempSnippets) {
-  //   const mdx = fs.readFileSync(snippet.mdxFilePath, "utf-8");
-  //   const { frontmatter } = await serialize(mdx, {
-  //     parseFrontmatter: true,
-  //   });
-  //   snippets.push({
-  //     ...snippet,
-  //     description: (frontmatter.description as string) ?? "",
-  //     language: (frontmatter.language as string) ?? "",
-  //   });
-  // }
+  for (const snippet of tempSnippets) {
+    const mdx = fs.readFileSync(snippet.mdxFilePath, "utf-8");
+    const { frontmatter } = await serialize(mdx, {
+      parseFrontmatter: true,
+    });
+    snippets.push({
+      ...snippet,
+      description: (frontmatter.description as string) ?? "",
+      language: (frontmatter.language as string) ?? "",
+    });
+  }
   return allSnippets;
 };
 
@@ -58,7 +59,7 @@ export const getSnippetBySlug = async (
   if (!tempSnippet) return null;
 
   const serializedMdx = await serialize(
-    fs.readFileSync(path.join(ROOT_DIR + tempSnippet.mdxFilePath), "utf-8"),
+    fs.readFileSync(path.join(tempSnippet.mdxFilePath), "utf-8"),
     {
       parseFrontmatter: true,
       mdxOptions: {
@@ -104,7 +105,7 @@ export const getSnippetBySlug = async (
       },
     }
   );
-  console.log(serializedMdx);
+  console.log(path.join(tempSnippet.mdxFilePath), `snippet path `);
   const snippet = {
     ...tempSnippet,
     name: (serializedMdx.frontmatter.name as string) ?? tempSnippet.name,
