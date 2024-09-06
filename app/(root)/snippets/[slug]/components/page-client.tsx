@@ -1,7 +1,7 @@
 "use client";
 import { SnippetModel } from "@/handlers/types";
 import React, { useEffect, useState } from "react";
-import Mdx from "./mdx";
+// import Mdx from "./mdx";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
