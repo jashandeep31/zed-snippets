@@ -3,11 +3,11 @@ import React from "react";
 import type { Metadata } from "next";
 import { allSnippets } from "@/lib/all-snippets";
 
-export async function generateMetadata({
+export function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Promise<Metadata> {
+}): Metadata {
   const snippet = allSnippets.find((s) => s.slug === params.slug);
 
   if (!snippet) {
@@ -24,7 +24,7 @@ export async function generateMetadata({
   };
 }
 
-const page = async ({
+const layout = async ({
   metaInfo,
   snippets,
 }: {
@@ -41,4 +41,4 @@ const page = async ({
   );
 };
 
-export default page;
+export default layout;
