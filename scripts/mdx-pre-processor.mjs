@@ -51,8 +51,8 @@ const snippetsMdxPreProcessor = async () => {
         validSnippets.push({
           ...{
             ...tempSnippet,
-            mdxFilePath: tempSnippet.mdxFilePath.replace("/pages", "/.pages"),
-            jsonFilePath: tempSnippet.jsonFilePath.replace("/pages", "/.pages"),
+            mdxFilePath: tempSnippet.mdxFilePath.replace(PAGES_DIR, ""),
+            jsonFilePath: tempSnippet.jsonFilePath.replace(PAGES_DIR, ""),
           },
           ...serializedMdx.frontmatter,
         });

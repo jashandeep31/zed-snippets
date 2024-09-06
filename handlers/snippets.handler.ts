@@ -1,5 +1,5 @@
 import path from "path";
-import { getAllSnippetsArray } from "./helpers/snippet.helper";
+// import { getAllSnippetsArray } from "./helpers/snippet.helper";
 import { SnippetModel } from "./types";
 import fs from "fs";
 import { serialize } from "next-mdx-remote/serialize";
@@ -15,22 +15,22 @@ export const getAllSnippets = async (): Promise<
   (SnippetModel & { description: string; language: string })[]
 > => {
   // const tempSnippets = allSnippets;
-  const tempSnippets = getAllSnippetsArray(PAGES_DIR);
+  // const tempSnippets = getAllSnippetsArray(PAGES_DIR);
 
-  const snippets: (SnippetModel & { description: string; language: string })[] =
-    [];
+  // const snippets: (SnippetModel & { description: string; language: string })[] =
+  //   [];
 
-  for (const snippet of tempSnippets) {
-    const mdx = fs.readFileSync(snippet.mdxFilePath, "utf-8");
-    const { frontmatter } = await serialize(mdx, {
-      parseFrontmatter: true,
-    });
-    snippets.push({
-      ...snippet,
-      description: (frontmatter.description as string) ?? "",
-      language: (frontmatter.language as string) ?? "",
-    });
-  }
+  // for (const snippet of tempSnippets) {
+  //   const mdx = fs.readFileSync(snippet.mdxFilePath, "utf-8");
+  //   const { frontmatter } = await serialize(mdx, {
+  //     parseFrontmatter: true,
+  //   });
+  //   snippets.push({
+  //     ...snippet,
+  //     description: (frontmatter.description as string) ?? "",
+  //     language: (frontmatter.language as string) ?? "",
+  //   });
+  // }
   return allSnippets;
 };
 
@@ -59,7 +59,7 @@ export const getSnippetBySlug = async (
   if (!tempSnippet) return null;
 
   const serializedMdx = await serialize(
-    fs.readFileSync(path.join(tempSnippet.mdxFilePath), "utf-8"),
+    fs.readFileSync(path.join(PAGES_DIR, tempSnippet.mdxFilePath), "utf-8"),
     {
       parseFrontmatter: true,
       mdxOptions: {
