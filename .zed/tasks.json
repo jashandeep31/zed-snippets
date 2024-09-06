@@ -1,0 +1,10 @@
+[
+  {
+    "label": "dev server",
+    "command": "npm run dev"
+  },
+  {
+    "label": "mdx compilter",
+    "command": "node  scripts/mdx-pre-processor.mjs"
+  }
+]

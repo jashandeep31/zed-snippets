@@ -10,7 +10,7 @@ const components = (components: MDXComponents) => {
       <h1
         className={cn(
           "font-heading  mt-2 scroll-m-20 text-xl font-bold",
-          className
+          className,
         )}
         {...props}
       />
@@ -19,7 +19,7 @@ const components = (components: MDXComponents) => {
       <h2
         className={cn(
           "font-heading  mt-12 scroll-m-20  text-lg font-semibold tracking-tight first:mt-0",
-          className
+          className,
         )}
         {...props}
       />
@@ -28,7 +28,7 @@ const components = (components: MDXComponents) => {
       <h3
         className={cn(
           "font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
-          className
+          className,
         )}
         {...props}
       />
@@ -37,7 +37,7 @@ const components = (components: MDXComponents) => {
       <h4
         className={cn(
           "font-heading mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
-          className
+          className,
         )}
         {...props}
       />
@@ -46,7 +46,7 @@ const components = (components: MDXComponents) => {
       <h5
         className={cn(
           "mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
-          className
+          className,
         )}
         {...props}
       />
@@ -55,7 +55,7 @@ const components = (components: MDXComponents) => {
       <h6
         className={cn(
           "mt-8 scroll-m-20 text-base font-semibold tracking-tight",
-          className
+          className,
         )}
         {...props}
       />
@@ -73,7 +73,7 @@ const components = (components: MDXComponents) => {
       <p
         className={cn(
           "leading-7 [&:not(:first-child)]:mt-1 text-muted-foreground",
-          className
+          className,
         )}
         {...props}
       />
@@ -131,7 +131,7 @@ const components = (components: MDXComponents) => {
       <th
         className={cn(
           "border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
-          className
+          className,
         )}
         {...props}
       />
@@ -143,7 +143,7 @@ const components = (components: MDXComponents) => {
       <td
         className={cn(
           "border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
-          className
+          className,
         )}
         {...props}
       />
@@ -152,7 +152,7 @@ const components = (components: MDXComponents) => {
       <code
         className={cn(
           "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm",
-          className
+          className,
         )}
         {...props}
       />
@@ -165,13 +165,15 @@ const components = (components: MDXComponents) => {
     }: React.HTMLAttributes<HTMLPreElement> & { __title__?: string }) => {
       return (
         <div id={__title__} className="scroll-m-24">
-          <pre
-            className={cn(
-              "mb-4 mt-6 overflow-x-auto rounded-lg border bg-black py-4 ",
-              className
-            )}
-            {...props}
-          />
+          <div id={__title__} className=" overflow-auto">
+            <pre
+              className={cn(
+                "mb-4 mt-6 overflow-x-auto rounded-lg border bg-black py-4 ",
+                className,
+              )}
+              {...props}
+            />
+          </div>
         </div>
       );
     },

@@ -11,18 +11,21 @@ const Navbar = () => {
   return (
     <div className="border-primary/50 border-dashed border-b py-3 ">
       <div className="container flex items-center justify-between">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8 ">
           <Link href="/" className={`text-lg font-bold text-primary `}>
             Zed Snippets
           </Link>
-          <div className="flex gap-4 items-center">
+          <div className="hidden md:flex gap-4 items-center ">
             <nav>
               <Link className="text-muted-foreground text-sm" href={"/"}>
                 Home
               </Link>
             </nav>
             <nav>
-              <Link className="text-muted-foreground text-sm" href={"/"}>
+              <Link
+                className="text-muted-foreground text-sm"
+                href={"https://github.com/jashandeep31/zed-snippets"}
+              >
                 Github
               </Link>
             </nav>

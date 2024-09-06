@@ -11,7 +11,7 @@ import {
 import Flexsearch from "flexsearch";
 import { searchQueries } from "@/lib/search-queries";
 import { useRouter } from "next/navigation";
-import { FileIcon } from "lucide-react";
+import { Code2, FileIcon } from "lucide-react";
 
 const searchIndex = new Flexsearch.Index({
   tokenize: "full",
@@ -53,7 +53,11 @@ const SearchBoxDialog = () => {
                 runCommand(() => router.push(query.url as string));
               }}
             >
-              <FileIcon className="mr-2 h-4 w-4" />
+              {query.type === "page" ? (
+                <FileIcon className="mr-2 h-4 w-4" />
+              ) : (
+                <Code2 className="mr-2 h-4 w-4" />
+              )}
               {query.name}
             </CommandItem>
           ))}

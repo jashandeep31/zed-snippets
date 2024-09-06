@@ -1,0 +1,723 @@
+{
+  "template element": {
+    "prefix": "template",
+    "body": [
+      "<template>",
+      "\t<${1:div}$2>",
+      "\t\t$0",
+      "\t</${1:div}>",
+      "</template>"
+    ],
+    "description": "template element"
+  },
+  "Expects: string. Updates the element’s textContent.": {
+    "prefix": "vText",
+    "body": ["v-text=\"${1:msg}\""],
+    "description": "Expects: string. Updates the element’s textContent."
+  },
+  "Expects: string. Updates the element’s innerHTML.": {
+    "prefix": "vHtml",
+    "body": ["v-html=\"${1:html}\""],
+    "description": "Expects: string. Updates the element’s innerHTML."
+  },
+  "Expects: any": {
+    "prefix": "vIf",
+    "body": ["v-if=\"${1:condition}\""],
+    "description": "Expects: any"
+  },
+  "Does not expect expression. previous sibling element must have v-if or v-else-if.": {
+    "prefix": "vElse",
+    "body": ["v-else"],
+    "description": "Does not expect expression. previous sibling element must have v-if or v-else-if."
+  },
+  "Expects: any. previous sibling element must have v-if or v-else-if.": {
+    "prefix": "vElseIf",
+    "body": ["v-else-if=\"${1:condition}\""],
+    "description": "Expects: any. previous sibling element must have v-if or v-else-if."
+  },
+  "Expects: Array | Object | number | string": {
+    "prefix": "vFor",
+    "body": [
+      "v-for=\"(${1:item}, ${2:index}) in ${3:items}\" :key=\"${4:index}\""
+    ],
+    "description": "Expects: Array | Object | number | string"
+  },
+  "Expects: Function | Inline Statement": {
+    "prefix": "vOn",
+    "body": ["v-on:${1:event}=\"${2:handle}\""],
+    "description": "Expects: Function | Inline Statement"
+  },
+  "Expects: any (with argument) | Object (without argument)": {
+    "prefix": "vBind",
+    "body": ["v-bind$1=\"${2}\""],
+    "description": "Expects: any (with argument) | Object (without argument)"
+  },
+  "Expects: varies based on value of form inputs element or output of components": {
+    "prefix": "vModel",
+    "body": ["v-model=\"${1:something}\""],
+    "description": "Expects: varies based on value of form inputs element or output of components"
+  },
+  "Expects: JavaScript expression that is valid in a function argument position (supports destructuring in supported environments). Optional - only needed if expecting props to be passed to the slot.": {
+    "prefix": "vSlot",
+    "body": ["v-slot$1=\"${2}\""],
+    "description": "Expects: JavaScript expression that is valid in a function argument position (supports destructuring in supported environments). Optional - only needed if expecting props to be passed to the slot."
+  },
+  "Does not expect expression": {
+    "prefix": "vOnce",
+    "body": ["v-once"],
+    "description": "Does not expect expression"
+  },
+  "Expects: string. Children of the same common parent must have unique keys. Duplicate keys will cause render errors.": {
+    "prefix": "key",
+    "body": [":key=\"${1:key}\""],
+    "description": "Expects: string. Children of the same common parent must have unique keys. Duplicate keys will cause render errors."
+  },
+  "Expects: string. ref is used to register a reference to an element or a child component. The reference will be registered under the parent component’s $refs object. If used on a plain DOM element, the reference will be that element; if used on a child component, the reference will be component instance.": {
+    "prefix": "ref",
+    "body": ["ref=\"${1:reference}\"$0"],
+    "description": "Expects: string. ref is used to register a reference to an element or a child component. The reference will be registered under the parent component’s $refs object. If used on a plain DOM element, the reference will be that element; if used on a child component, the reference will be component instance."
+  },
+  "slot=''. Expects: string. Used on content inserted into child components to indicate which named slot the content belongs to.": {
+    "prefix": "slotA",
+    "body": ["slot=\"$1\"$0"],
+    "description": "slot=''. Expects: string. Used on content inserted into child components to indicate which named slot the content belongs to."
+  },
+  "<slot></slot>. Expects: string. Used on content inserted into child components to indicate which named slot the content belongs to.": {
+    "prefix": "slotE",
+    "body": ["<slot$1>$2</slot>$0"],
+    "description": "<slot></slot>. Expects: string. Used on content inserted into child components to indicate which named slot the content belongs to."
+  },
+  "Used to denote an element or component as a scoped slot. The attribute’s value should be a valid JavaScript expression that can appear in the argument position of a function signature. This means in supported environments you can also use ES2015 destructuring in the expression. Serves as a replacement for scope in 2.5.0+.": {
+    "prefix": "slotScope",
+    "body": ["slot-scope=\"$1\"$0"],
+    "description": "Used to denote an element or component as a scoped slot. The attribute’s value should be a valid JavaScript expression that can appear in the argument position of a function signature. This means in supported environments you can also use ES2015 destructuring in the expression. Serves as a replacement for scope in 2.5.0+."
+  },
+  "Used to denote a <template> element as a scoped slot, which is replaced by `slot-scope` in 2.5.0+.": {
+    "prefix": "scope",
+    "body": ["scope=\"${1:this api replaced by slot-scope in 2.5.0+}\"$0"],
+    "description": "Used to denote a <template> element as a scoped slot, which is replaced by `slot-scope` in 2.5.0+."
+  },
+  "component element": {
+    "prefix": "component",
+    "body": ["<component :is=\"${1:componentId}\"></component>$0"],
+    "description": "component element"
+  },
+  "keep-alive element": {
+    "prefix": "keepAlive",
+    "body": ["<keep-alive$1>", "$2", "</keep-alive>$0"],
+    "description": "keep-alive element"
+  },
+  "transition element": {
+    "prefix": "transition",
+    "body": ["<transition$1>", "$2", "</transition>$0"],
+    "description": "transition element"
+  },
+  "transition-group element": {
+    "prefix": "transitionGroup",
+    "body": ["<transition-group$1>", "$2", "</transition-group>"],
+    "description": "transition-group element"
+  },
+  "enter-class=''. Expects: string.": {
+    "prefix": "enterClass",
+    "body": ["enter-class=\"$1\"$0"],
+    "description": "enter-class=''. Expects: string."
+  },
+  "leave-class=''. Expects: string.": {
+    "prefix": "leaveClass",
+    "body": ["leave-class=\"$1\"$0"],
+    "description": "leave-class=''. Expects: string."
+  },
+  "appear-class=''. Expects: string.": {
+    "prefix": "appearClass",
+    "body": ["appear-class=\"$1\"$0"],
+    "description": "appear-class=''. Expects: string."
+  },
+  "enter-to-class=''. Expects: string.": {
+    "prefix": "enterToClass",
+    "body": ["enter-to-class=\"$1\"$0"],
+    "description": "enter-to-class=''. Expects: string."
+  },
+  "leave-to-class=''. Expects: string.": {
+    "prefix": "leaveToClass",
+    "body": ["leave-to-class=\"$1\"$0"],
+    "description": "leave-to-class=''. Expects: string."
+  },
+  "appear-to-class=''. Expects: string.": {
+    "prefix": "appearToClass",
+    "body": ["appear-to-class=\"$1\"$0"],
+    "description": "appear-to-class=''. Expects: string."
+  },
+  "enter-active-class=''. Expects: string.": {
+    "prefix": "enterActiveClass",
+    "body": ["enter-active-class=\"$1\"$0"],
+    "description": "enter-active-class=''. Expects: string."
+  },
+  "leave-active-class=''. Expects: string.": {
+    "prefix": "leaveActiveClass",
+    "body": ["leave-active-class=\"$1\"$0"],
+    "description": "leave-active-class=''. Expects: string."
+  },
+  "appear-active-class=''. Expects: string.": {
+    "prefix": "appearActiveClass",
+    "body": ["appear-active-class=\"$1\"$0"],
+    "description": "appear-active-class=''. Expects: string."
+  },
+  "@before-enter=''": {
+    "prefix": "beforeEnterEvent",
+    "body": ["@before-enter=\"$1\"$0"],
+    "description": "@before-enter=''"
+  },
+  "@before-leave=''": {
+    "prefix": "beforeLeaveEvent",
+    "body": ["@before-leave=\"$1\"$0"],
+    "description": "@before-leave=''"
+  },
+  "@before-appear=''": {
+    "prefix": "beforeAppearEvent",
+    "body": ["@before-appear=\"$1\"$0"],
+    "description": "@before-appear=''"
+  },
+  "@enter=''": {
+    "prefix": "enterEvent",
+    "body": ["@enter=\"$1\"$0"],
+    "description": "@enter=''"
+  },
+  "@leave=''": {
+    "prefix": "leaveEvent",
+    "body": ["@leave=\"$1\"$0"],
+    "description": "@leave=''"
+  },
+  "@appear=''": {
+    "prefix": "appearEvent",
+    "body": ["@appear=\"$1\"$0"],
+    "description": "@appear=''"
+  },
+  "@after-enter=''": {
+    "prefix": "afterEnterEvent",
+    "body": ["@after-enter=\"$1\"$0"],
+    "description": "@after-enter=''"
+  },
+  "@after-leave=''": {
+    "prefix": "afterLeaveEvent",
+    "body": ["@after-leave=\"$1\"$0"],
+    "description": "@after-leave=''"
+  },
+  "@after-appear=''": {
+    "prefix": "afterAppearEvent",
+    "body": ["@after-appear=\"$1\"$0"],
+    "description": "@after-appear=''"
+  },
+  "@enter-cancelled=''": {
+    "prefix": "enterCancelledEvent",
+    "body": ["@enter-cancelled=\"$1\"$0"],
+    "description": "@enter-cancelled=''"
+  },
+  "@leave-cancelled='' (v-show only)": {
+    "prefix": "leaveCancelledEvent",
+    "body": ["@leave-cancelled=\"$1\"$0"],
+    "description": "@leave-cancelled='' (v-show only)"
+  },
+  "@appear-cancelled=''": {
+    "prefix": "appearCancelledEvent",
+    "body": ["@appear-cancelled=\"$1\"$0"],
+    "description": "@appear-cancelled=''"
+  },
+  "router-link element": {
+    "prefix": "routerLink",
+    "body": ["<router-link $1>$2</router-link>$0"],
+    "description": "router-link element"
+  },
+  "<router-link to=''></router-link>. router-link element": {
+    "prefix": "routerLinkTo",
+    "body": ["<router-link to=\"$1\">$2</router-link>$0"],
+    "description": "<router-link to=''></router-link>. router-link element"
+  },
+  "to=''": {
+    "prefix": "to",
+    "body": ["to=\"$1\"$0"],
+    "description": "to=''"
+  },
+  "tag=''": {
+    "prefix": "tag",
+    "body": ["tag=\"$1\"$0"],
+    "description": "tag=''"
+  },
+  "router-view element": {
+    "prefix": "routerView",
+    "body": ["<router-view>$1</router-view>$0"],
+    "description": "router-view element"
+  },
+  "This component is used only in layouts to display the page components.": {
+    "prefix": "nuxt",
+    "body": ["<nuxt/>"],
+    "description": "This component is used only in layouts to display the page components."
+  },
+  "This component is used for displaying the children components in a nested route.": {
+    "prefix": "nuxtChild",
+    "body": ["<nuxt-child $1/>$0"],
+    "description": "This component is used for displaying the children components in a nested route."
+  },
+  "This component is used to provide navigations between page components.": {
+    "prefix": "nuxtLink",
+    "body": ["<nuxt-link ${1|to,:to|}=\"$2\">$0</nuxt-link>"],
+    "description": "This component is used to provide navigations between page components."
+  },
+  "import ... from ...": {
+    "prefix": "import",
+    "body": ["import $1 from '$2'"],
+    "description": "import ... from ..."
+  },
+  "new Vue()": {
+    "prefix": "newVue",
+    "body": ["new Vue({", "\t$1", "})"],
+    "description": "new Vue()"
+  },
+  "Vue.config.silent": {
+    "prefix": "VueConfigSilent",
+    "body": ["Vue.config.silent = ${1:true}"],
+    "description": "Vue.config.silent"
+  },
+  "Vue.config.optionMergeStrategies": {
+    "prefix": "VueConfigOptionMergeStrategies",
+    "body": ["Vue.config.optionMergeStrategies$1"],
+    "description": "Vue.config.optionMergeStrategies"
+  },
+  "Vue.config.devtools": {
+    "prefix": "VueConfigDevtools",
+    "body": ["Vue.config.devtools = ${1:true}"],
+    "description": "Vue.config.devtools"
+  },
+  "Vue.config.errorHandler": {
+    "prefix": "VueConfigErrorHandler",
+    "body": [
+      "Vue.config.errorHandler = function (err, vm, info) {",
+      "\t${1:// handle error}",
+      "}"
+    ],
+    "description": "Vue.config.errorHandler"
+  },
+  "Vue.config.warnHandler": {
+    "prefix": "VueConfigWarnHandler",
+    "body": [
+      "Vue.config.warnHandler = function (msg, vm, trace) {",
+      "\t${1:// handle warn}",
+      "}"
+    ],
+    "description": "Vue.config.warnHandler"
+  },
+  "Vue.config.ignoredElements": {
+    "prefix": "VueConfigIgnoredElements",
+    "body": ["Vue.config.ignoredElements = [", "\t'${1}'", "]$0"],
+    "description": "Vue.config.ignoredElements"
+  },
+  "Vue.config.keyCodes": {
+    "prefix": "VueConfigKeyCodes",
+    "body": ["Vue.config.keyCodes = {", "\t${1:// camelCase won`t work}", "}"],
+    "description": "Vue.config.keyCodes"
+  },
+  "Vue.config.performance": {
+    "prefix": "VueConfigPerformance",
+    "body": ["Vue.config.performance = ${1:true}"],
+    "description": "Vue.config.performance"
+  },
+  "Vue.config.productionTip": {
+    "prefix": "VueConfigProductionTip",
+    "body": ["Vue.config.productionTip = ${1:false}"],
+    "description": "Vue.config.productionTip"
+  },
+  "Vue.extend( options )": {
+    "prefix": "vueExtend",
+    "body": ["Vue.extend({", "\ttemplate:${1:template}", "})"],
+    "description": "Vue.extend( options )"
+  },
+  "Vue.nextTick( callback, [context] )": {
+    "prefix": "VueNextTick",
+    "body": ["Vue.nextTick({", "\t$1", "})"],
+    "description": "Vue.nextTick( callback, [context] )"
+  },
+  "Vue.nextTick( callback, [context] ).then(function(){ })": {
+    "prefix": "VueNextTickThen",
+    "body": ["Vue.nextTick({", "\t$1", "}).then(function ($2) {", "\t$3", "})"],
+    "description": "Vue.nextTick( callback, [context] ).then(function(){ })"
+  },
+  "Vue.set( target, key, value )": {
+    "prefix": "VueSet",
+    "body": ["Vue.set(${1:target}, ${2:key}, ${3:value})"],
+    "description": "Vue.set( target, key, value )"
+  },
+  "Vue.delete( target, key )": {
+    "prefix": "VueDelete",
+    "body": ["Vue.delete(${1:target}, ${2:key})"],
+    "description": "Vue.delete( target, key )"
+  },
+  "Vue.directive( id, [definition] )": {
+    "prefix": "VueDirective",
+    "body": ["Vue.directive(${1:id}${2:, [definition]})"],
+    "description": "Vue.directive( id, [definition] )"
+  },
+  "Vue.filter( id, [definition] )": {
+    "prefix": "VueFilter",
+    "body": ["Vue.filter(${1:id}${2:, [definition]})"],
+    "description": "Vue.filter( id, [definition] )"
+  },
+  "Vue.component( id, [definition] )": {
+    "prefix": "VueComponent",
+    "body": ["Vue.component(${1:id}${2:, [definition]})$0"],
+    "description": "Vue.component( id, [definition] )"
+  },
+  "Vue.use( plugin )": {
+    "prefix": "VueUse",
+    "body": ["Vue.use(${1:plugin})$0"],
+    "description": "Vue.use( plugin )"
+  },
+  "Vue.mixin( mixin )": {
+    "prefix": "VueMixin",
+    "body": ["Vue.mixin({${1:mixin}})"],
+    "description": "Vue.mixin( mixin )"
+  },
+  "Vue.compile( template )": {
+    "prefix": "VueCompile",
+    "body": ["Vue.compile(${1:template})"],
+    "description": "Vue.compile( template )"
+  },
+  "Vue.observable( object )": {
+    "prefix": "VueObservable",
+    "body": ["Vue.observable({${1:object}})"],
+    "description": "Vue.observable( object )"
+  },
+  "Vue.version.split('.')[]": {
+    "prefix": "VueVersion",
+    "body": ["Vue.version$0"],
+    "description": "Vue.version.split('.')[]"
+  },
+  "The data object for the Vue instance.": {
+    "prefix": "data",
+    "body": ["data() {", "\treturn {", "\t\t$1", "\t}", "},$0"],
+    "description": "The data object for the Vue instance."
+  },
+  "A list/hash of attributes that are exposed to accept data from the parent component. ": {
+    "prefix": "props",
+    "body": ["props"],
+    "description": "A list/hash of attributes that are exposed to accept data from the parent component. "
+  },
+  "Restriction: only respected in instance creation via `new`. Pass props to an instance during its creation. This is primarily intended to make unit testing easier.": {
+    "prefix": "propsData",
+    "body": ["propsData"],
+    "description": "Restriction: only respected in instance creation via `new`. Pass props to an instance during its creation. This is primarily intended to make unit testing easier."
+  },
+  "just a word": {
+    "prefix": "mapMutations",
+    "body": ["mapMutations"],
+    "description": "just a word"
+  },
+  "Computed properties to be mixed into the Vue instance. ": {
+    "prefix": "computed",
+    "body": ["computed: {", "\t$1", "},$0"],
+    "description": "Computed properties to be mixed into the Vue instance. "
+  },
+  "Methods to be mixed into the Vue instance.": {
+    "prefix": "methods",
+    "body": ["methods: {", "\t$1", "},$0"],
+    "description": "Methods to be mixed into the Vue instance."
+  },
+  "An object where keys are expressions to watch and values are the corresponding callbacks. The value can also be a string of a method name, or an Object that contains additional options. Note that you should not use an arrow function to define a watcher.": {
+    "prefix": "watch",
+    "body": ["watch: {", "\t$1", "},$0"],
+    "description": "An object where keys are expressions to watch and values are the corresponding callbacks. The value can also be a string of a method name, or an Object that contains additional options. Note that you should not use an arrow function to define a watcher."
+  },
+  "Vue Watcher with options.": {
+    "prefix": "watchWithOptions",
+    "body": [
+      "${1:key}: {",
+      "\tdeep: ${2:true},",
+      "\timmediate: ${3:true},",
+      "\thandler: function (${4:val}, ${5:oldVal}) {",
+      "\t\t$6",
+      "\t}",
+      "},$0"
+    ],
+    "description": "Vue Watcher with options."
+  },
+  "An alternative to string templates allowing you to leverage the full programmatic power of JavaScript.": {
+    "prefix": "render",
+    "body": ["render(h) {", "\t$1", "},"],
+    "description": "An alternative to string templates allowing you to leverage the full programmatic power of JavaScript."
+  },
+  "Provide an alternative render output when the default render function encounters an error.": {
+    "prefix": "renderError",
+    "body": ["renderError(h, err) {", "\t$1", "},"],
+    "description": "Provide an alternative render output when the default render function encounters an error."
+  },
+  "Type: Function.": {
+    "prefix": "asyncData",
+    "body": [
+      "asyncData({${1:isDev}${2:, route}${3:, store}${4:, env}${5:, params}${6:, query}${7:, req}${8:, res}${9:, redirect}${10:, error}}) {",
+      "\t$11",
+      "},"
+    ],
+    "description": "Type: Function."
+  },
+  "Type: (err: Error, vm: Component, info: string) => ?boolean": {
+    "prefix": "errorCaptured",
+    "body": ["errorCaptured: (err, vm, info) => {", "\t$1", "},"],
+    "description": "Type: (err: Error, vm: Component, info: string) => ?boolean"
+  },
+  "Type: Object. Read only.": {
+    "prefix": "vmRefs",
+    "body": ["${1|this,vm|}.\\$refs$2"],
+    "description": "Type: Object. Read only."
+  },
+  "Type: HTMLElement. Read only.": {
+    "prefix": "vmEl",
+    "body": ["${1|this,vm|}.\\$el$2"],
+    "description": "Type: HTMLElement. Read only."
+  },
+  "Type: Vue instance. Read only.": {
+    "prefix": "vmRoot",
+    "body": ["${1|this,vm|}.\\$root$2"],
+    "description": "Type: Vue instance. Read only."
+  },
+  "Type: Array<Vue instance>. Read only.": {
+    "prefix": "vmChildren",
+    "body": ["${1|this,vm|}.\\$children$2"],
+    "description": "Type: Array<Vue instance>. Read only."
+  },
+  "Type: { [name: string]: props => VNode | Array<VNode> }. Read only.": {
+    "prefix": "vmScopedSlots",
+    "body": ["${1|this,vm|}.\\$scopedSlots.default({", "\t$2", "})"],
+    "description": "Type: { [name: string]: props => VNode | Array<VNode> }. Read only."
+  },
+  "Type: boolean. Read only.": {
+    "prefix": "vmIsServer",
+    "body": ["${1|this,vm|}.\\$isServer$2"],
+    "description": "Type: boolean. Read only."
+  },
+  "Type: { [key: string]: string }. Read only.": {
+    "prefix": "vmAttrs",
+    "body": ["${1|this,vm|}.\\$attrs$2"],
+    "description": "Type: { [key: string]: string }. Read only."
+  },
+  "Type: { [key: string]: Function | Array<Function> }. Read only.": {
+    "prefix": "vmListeners",
+    "body": ["${1|this,vm|}.\\$listeners$2"],
+    "description": "Type: { [key: string]: Function | Array<Function> }. Read only."
+  },
+  "vm.$watch( expOrFn, callback, [options] )\n Arguments:\n {string | Function} expOrFn\n {Function | Object} callback\n {Object} [options]\n {boolean} [options.deep]\n\t {boolean} [options.immediate]": {
+    "prefix": "vmWatch",
+    "body": [
+      "${1|this,vm|}.\\$watch(${2:expOrFn}, ${3:callback}${4:, [options]})"
+    ],
+    "description": "vm.$watch( expOrFn, callback, [options] )\n Arguments:\n {string | Function} expOrFn\n {Function | Object} callback\n {Object} [options]\n {boolean} [options.deep]\n\t {boolean} [options.immediate]"
+  },
+  "vm.$set( target, key, value ). This is the alias of the global Vue.set.": {
+    "prefix": "vmSet",
+    "body": ["${1|this,vm|}.\\$set(${2:target}, ${3:key}, ${4:value})"],
+    "description": "vm.$set( target, key, value ). This is the alias of the global Vue.set."
+  },
+  "vm.$delete( target, key )": {
+    "prefix": "vmDelete",
+    "body": [
+      "${1|this,vm|}.\\$delete(${2:target}, ${3:key}). This is the alias of the global Vue.delete."
+    ],
+    "description": "vm.$delete( target, key )"
+  },
+  "vm.$on( event, callback )": {
+    "prefix": "vmOn",
+    "body": ["${1|this,vm|}.\\$on('${2:event}', ${3:callback})$4"],
+    "description": "vm.$on( event, callback )"
+  },
+  "vm.$once( event, callback )": {
+    "prefix": "vmOnce",
+    "body": ["${1|this,vm|}.\\$once('${2:event}', ${3:callback})$4"],
+    "description": "vm.$once( event, callback )"
+  },
+  "vm.$off( [event, callback] )": {
+    "prefix": "vmOff",
+    "body": ["${1|this,vm|}.\\$off('${2:event}', ${3:callback})$4"],
+    "description": "vm.$off( [event, callback] )"
+  },
+  "vm.$emit( event, […args] )": {
+    "prefix": "vmEmit",
+    "body": ["${1|this,vm|}.\\$emit('${2:event}'${3:, […args]})$4"],
+    "description": "vm.$emit( event, […args] )"
+  },
+  "vm.$mount( [elementOrSelector] )": {
+    "prefix": "vmMount",
+    "body": ["${1|this,vm|}.\\$mount('$2')"],
+    "description": "vm.$mount( [elementOrSelector] )"
+  },
+  "vm.$forceUpdate()": {
+    "prefix": "vmForceUpdate",
+    "body": ["${1|this,vm|}.\\$forceUpdate()"],
+    "description": "vm.$forceUpdate()"
+  },
+  "vm.$nextTick( callback )": {
+    "prefix": "vmNextTick",
+    "body": ["${1|this,vm|}.\\$nextTick(${2:callback})"],
+    "description": "vm.$nextTick( callback )"
+  },
+  "vm.$destroy()": {
+    "prefix": "vmDestroy",
+    "body": ["${1|this,vm|}.\\$destroy()$2"],
+    "description": "vm.$destroy()"
+  },
+  "require('vue-server-renderer').createRenderer()": {
+    "prefix": "renderer",
+    "body": [
+      "const ${1:renderer} = require('vue-server-renderer').createRenderer()$0"
+    ],
+    "description": "require('vue-server-renderer').createRenderer()"
+  },
+  "createRenderer({ })": {
+    "prefix": "createRenderer",
+    "body": ["createRenderer({", "\t$1", "})"],
+    "description": "createRenderer({ })"
+  },
+  "preventDefault()": {
+    "prefix": "preventDefault",
+    "body": ["preventDefault();", "$1"],
+    "description": "preventDefault()"
+  },
+  "stopPropagation()": {
+    "prefix": "stopPropagation",
+    "body": ["stopPropagation();", "$1"],
+    "description": "stopPropagation()"
+  },
+  "import VueRouter from 'vue-router'": {
+    "prefix": "importVueRouter",
+    "body": ["import VueRouter from 'vue-router'"],
+    "description": "import VueRouter from 'vue-router'"
+  },
+  "const router = newVueRouter({ })": {
+    "prefix": "newVueRouter",
+    "body": ["const ${1:router} = new VueRouter({", "\t$2", "})$0"],
+    "description": "const router = newVueRouter({ })"
+  },
+  "router.beforeEach": {
+    "prefix": "routerBeforeEach",
+    "body": [
+      "${1:router}.beforeEach((to, from, next) => {",
+      "\t${2:// to and from are both route objects. must call `next`.}",
+      "})$0"
+    ],
+    "description": "router.beforeEach"
+  },
+  "router.beforeResolve": {
+    "prefix": "routerBeforeResolve",
+    "body": [
+      "${1:router}.beforeResolve((to, from, next) => {",
+      "\t${2:// to and from are both route objects. must call `next`.}",
+      "})$0"
+    ],
+    "description": "router.beforeResolve"
+  },
+  "router.afterEach": {
+    "prefix": "routerAfterEach",
+    "body": [
+      "${1:router}.afterEach((to, from) => {",
+      "\t${2:// to and from are both route objects.}",
+      "})$0"
+    ],
+    "description": "router.afterEach"
+  },
+  "router.push()": {
+    "prefix": "routerPush",
+    "body": ["${1:router}.push($2)$0"],
+    "description": "router.push()"
+  },
+  "router.replace()": {
+    "prefix": "routerReplace",
+    "body": ["${1:router}.replace($2)$0"],
+    "description": "router.replace()"
+  },
+  "router.go()": {
+    "prefix": "routerGo",
+    "body": ["${1:router}.go($2)$0"],
+    "description": "router.go()"
+  },
+  "router.back()": {
+    "prefix": "routerBack",
+    "body": ["${1:router}.back($2)$0"],
+    "description": "router.back()"
+  },
+  "router.forward()": {
+    "prefix": "routerForward",
+    "body": ["${1:router}.forward($2)$0"],
+    "description": "router.forward()"
+  },
+  "router.getMatchedComponents()": {
+    "prefix": "routerGetMatchedComponents",
+    "body": ["${1:router}.getMatchedComponents($2)$0"],
+    "description": "router.getMatchedComponents()"
+  },
+  "router.resolve()": {
+    "prefix": "routerResolve",
+    "body": ["${1:router}.resolve($2)$0"],
+    "description": "router.resolve()"
+  },
+  "router.addRoutes()": {
+    "prefix": "routerAddRoutes",
+    "body": ["${1:router}.addRoutes($2)$0"],
+    "description": "router.addRoutes()"
+  },
+  "router.onReady()": {
+    "prefix": "routerOnReady",
+    "body": ["${1:router}.onReady($2)$0"],
+    "description": "router.onReady()"
+  },
+  "router.onError()": {
+    "prefix": "routerOnError",
+    "body": ["${1:router}.onError($2)$0"],
+    "description": "router.onError()"
+  },
+  "routes: []": {
+    "prefix": "routes",
+    "body": ["routes: [$1]$0"],
+    "description": "routes: []"
+  },
+  "beforeEnter: (to, from, next) => { }": {
+    "prefix": "beforeEnter",
+    "body": ["beforeEnter: (to, from, next) => {", "\t${1:// ...}", "}"],
+    "description": "beforeEnter: (to, from, next) => { }"
+  },
+  "beforeRouteEnter (to, from, next) { }": {
+    "prefix": "beforeRouteEnter",
+    "body": ["beforeRouteEnter (to, from, next) {", "\t${1:// ...}", "}"],
+    "description": "beforeRouteEnter (to, from, next) { }"
+  },
+  "beforeRouteLeave (to, from, next) { }": {
+    "prefix": "beforeRouteLeave",
+    "body": ["beforeRouteLeave (to, from, next) {", "\t${1:// ...}", "}"],
+    "description": "beforeRouteLeave (to, from, next) { }"
+  },
+  "scrollBehavior (to, from, savedPosition) { }": {
+    "prefix": "scrollBehavior",
+    "body": [
+      "scrollBehavior (to, from, savedPosition) {",
+      "\t${1:// ...}",
+      "}"
+    ],
+    "description": "scrollBehavior (to, from, savedPosition) { }"
+  },
+  "const store = new Vuex.Store({ })": {
+    "prefix": "newVuexStore",
+    "body": ["const ${1:store} = new Vuex.Store({", "\t${2:// ...}", "})"],
+    "description": "const store = new Vuex.Store({ })"
+  },
+  "Expects: string": {
+    "prefix": "vHtml",
+    "body": ["v-html='${1:html}'"],
+    "description": "Expects: string"
+  },
+
+  "script element": {
+    "prefix": "script",
+    "body": ["<script>", "export default {", "\t$0", "}", "</script>"],
+    "description": "script element"
+  },
+  "style element with lang attribute": {
+    "prefix": "styleLang",
+    "body": ["<style lang=\"$1\">", "\t$0", "</style>"],
+    "description": "style element with lang attribute"
+  }
+}

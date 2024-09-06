@@ -5,6 +5,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import * as z from "zod";
 import { fromError } from "zod-validation-error";
 import chalk from "chalk";
+import he from "he";
 
 export const ROOT_DIR = process.cwd();
 export const PAGES_DIR = path.join(ROOT_DIR, "/pages/snippets");
@@ -28,11 +29,11 @@ const snippetsMdxPreProcessor = async () => {
         parseFrontmatter: true,
       });
       const parsedMdx = snippetMdxValidationSchema.safeParse(
-        serializedMdx.frontmatter
+        serializedMdx.frontmatter,
       );
       if (!parsedMdx.success) {
         console.log(
-          chalk.red.bgRed.bold(fromError(parsedMdx.error).toString())
+          chalk.red.bgRed.bold(fromError(parsedMdx.error).toString()),
         );
         console.log(chalk.yellow("Skipping snippet: ", tempSnippet.name));
       } else {
@@ -72,9 +73,15 @@ const snippetsMdxPreProcessor = async () => {
           newMdx =
             newMdx +
             `\n<tr>
-  <td><a href="#${snippets[key].prefix}">${snippets[key].prefix}</a></td>
-  <td>${snippets[key].description}</td>
-</tr>`;
+          <td><a href="#${snippets[key].prefix}">${
+            snippets[key].prefix
+          }</a></td>
+          <td>${he.encode(snippets[key].description, {
+            useNamedReferences: false,
+            decimal: false,
+            encodeEverything: true,
+          })}</td>
+        </tr>`;
         });
 
         newMdx = newMdx + `\n</table>`;
@@ -83,7 +90,7 @@ const snippetsMdxPreProcessor = async () => {
           newMdx =
             newMdx +
             `
-\n 
+\n
 
 \`\`\`json title="${snippets[key].prefix}"
 ${JSON.stringify(snippets[key], null, 2)}
@@ -102,16 +109,16 @@ ${JSON.stringify(snippets[key], null, 2)}
                 return 1; // "snippet" comes after "page"
               }
               return 0; // If both are the same, no change
-            })
-          )}`
+            }),
+          )}`,
         );
         fs.copyFileSync(
           tempSnippet.jsonFilePath,
-          path.join(validateSnippetDir, "snippet.json")
+          path.join(validateSnippetDir, "snippet.json"),
         );
       }
     } catch (e) {
-      console.log(chalk.red.bgRed.bold(e.toString()));
+      console.log(chalk.bgRed.bold(e.toString()));
       console.log(chalk.yellow("Skipping snippet: ", tempSnippet.name));
     }
   }
