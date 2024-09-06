@@ -59,9 +59,7 @@ const PageClient = ({
             Get Snippets JSON
           </Link>
         </div>
-        <div className="mt-6 mdx">
-          <Mdx code={snippet.code} />
-        </div>
+        <div className="mt-6 mdx">{/* <Mdx code={snippet.code} /> */}</div>
       </div>
     </div>
   );
