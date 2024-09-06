@@ -1,4 +1,4 @@
-// import path from "path";
+import path from "path";
 // import { getAllSnippetsArray } from "./helpers/snippet.helper";
 import { SnippetModel } from "./types";
 import fs from "fs";
@@ -8,7 +8,7 @@ import { visit } from "unist-util-visit";
 import rehypePrettyCode from "rehype-pretty-code";
 import { allSnippets } from "@/lib/all-snippets";
 
-// const ROOT_DIR = path.join(process.cwd());
+const ROOT_DIR = path.join(process.cwd());
 // const PAGES_DIR = path.join(ROOT_DIR, ".pages/snippets");
 
 export const getAllSnippets = async (): Promise<
@@ -58,7 +58,7 @@ export const getSnippetBySlug = async (
   if (!tempSnippet) return null;
 
   const serializedMdx = await serialize(
-    fs.readFileSync(tempSnippet.mdxFilePath, "utf-8"),
+    fs.readFileSync(path.join(ROOT_DIR + tempSnippet.mdxFilePath), "utf-8"),
     {
       parseFrontmatter: true,
       mdxOptions: {
