@@ -1,6 +1,5 @@
 // import { getSnippetBySlug } from "@/handlers/snippets.handler";
 import React from "react";
-import PageClient from "./components/page-client";
 import type { Metadata } from "next";
 import { allSnippets } from "@/lib/all-snippets";
 
@@ -25,15 +24,21 @@ export async function generateMetadata({
   };
 }
 
-const page = async ({ params }: { params: { slug: string } }) => {
-  // const snippet = await getSnippetBySlug(params.slug);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const snippet: any = allSnippets.find((s) => s.slug === params.slug);
-  if (!snippet) {
-    return <div>Snippet not found</div>;
-  }
-
-  return <PageClient snippet={snippet} />;
+const page = async ({
+  metaInfo,
+  snippets,
+}: {
+  metaInfo: React.ReactNode;
+  snippets: React.ReactNode;
+}) => {
+  return (
+    <>
+      <div className="container md:mt-12 mt-6">
+        {metaInfo}
+        {snippets}
+      </div>
+    </>
+  );
 };
 
 export default page;
