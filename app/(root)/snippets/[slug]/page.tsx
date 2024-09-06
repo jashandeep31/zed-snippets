@@ -1,4 +1,4 @@
-import { getSnippetBySlug } from "@/handlers/snippets.handler";
+// import { getSnippetBySlug } from "@/handlers/snippets.handler";
 import React from "react";
 import PageClient from "./components/page-client";
 import type { Metadata } from "next";
@@ -9,7 +9,8 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const snippet = await getSnippetBySlug(params.slug);
+  const snippet = allSnippets.find((s) => s.slug === params.slug);
+
   if (!snippet) {
     return {
       title: "Page Not Found | Zed Snippets",
