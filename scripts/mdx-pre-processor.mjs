@@ -29,15 +29,14 @@ const snippetsMdxPreProcessor = async () => {
         parseFrontmatter: true,
       });
       const parsedMdx = snippetMdxValidationSchema.safeParse(
-        serializedMdx.frontmatter,
+        serializedMdx.frontmatter
       );
       if (!parsedMdx.success) {
         console.log(
-          chalk.red.bgRed.bold(fromError(parsedMdx.error).toString()),
+          chalk.red.bgRed.bold(fromError(parsedMdx.error).toString())
         );
         console.log(chalk.yellow("Skipping snippet: ", tempSnippet.name));
       } else {
-        validSnippets.push(tempSnippet);
         console.log(chalk.bgGreen("Validated snippet: ", tempSnippet.name));
         const validateSnippetDir = path
           .join(PAGES_DIR, tempSnippet.slug)
@@ -48,6 +47,14 @@ const snippetsMdxPreProcessor = async () => {
           url: `/snippets/${tempSnippet.slug}`,
           description: serializedMdx.frontmatter.description,
           type: "page",
+        });
+        validSnippets.push({
+          ...{
+            ...tempSnippet,
+            mdxFilePath: tempSnippet.mdxFilePath.replace("/pages", "/.pages"),
+            jsonFilePath: tempSnippet.jsonFilePath.replace("/pages", "/.pages"),
+          },
+          ...serializedMdx.frontmatter,
         });
 
         let newMdx = `${validateMdx}`;
@@ -74,8 +81,8 @@ const snippetsMdxPreProcessor = async () => {
             newMdx +
             `\n<tr>
           <td><a href="#${snippets[key].prefix}">${
-            snippets[key].prefix
-          }</a></td>
+              snippets[key].prefix
+            }</a></td>
           <td>${he.encode(snippets[key].description, {
             useNamedReferences: false,
             decimal: false,
@@ -109,12 +116,19 @@ ${JSON.stringify(snippets[key], null, 2)}
                 return 1; // "snippet" comes after "page"
               }
               return 0; // If both are the same, no change
-            }),
-          )}`,
+            })
+          )}`
+        );
+        fs.writeFileSync(
+          ROOT_DIR + "/lib/all-snippets.ts",
+          `export const allSnippets:{name:string; slug:string ; mdxFilePath:string ; jsonFilePath:string ; description:string ; language:string}[] = ${JSON.stringify(
+            // sorby type
+            validSnippets
+          )}`
         );
         fs.copyFileSync(
           tempSnippet.jsonFilePath,
-          path.join(validateSnippetDir, "snippet.json"),
+          path.join(validateSnippetDir, "snippet.json")
         );
       }
     } catch (e) {
