@@ -41,7 +41,6 @@ export default async function page() {
                 <h2 className={cn(lora.className, "")}>{snippet.slug}</h2>
                 <p className="text-muted-foreground text-sm">
                   {snippet.description}
-                  {snippet.mdxFilePath}
                 </p>
               </div>
               <h3 className="text-muted-foreground flex items-center gap-1 text-sm font-medium mt-4">
