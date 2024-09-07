@@ -3,7 +3,7 @@ import Link from "next/link";
 // import { usePathname } from "next/navigation";
 import React, { useContext } from "react";
 import NavbarConverterMenu from "./navbar-conver-menu";
-import { Search } from "lucide-react";
+import { Search, Star } from "lucide-react";
 import { searchBoxContext } from "@/context/search-box-context";
 
 const Navbar = () => {
@@ -34,6 +34,13 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <Link
+            href={"https://github.com/jashandeep31/zed-snippets"}
+            className="border rounded p-1 text-sm text-muted-foreground  flex items-center  gap-1"
+          >
+            <Star size={16} />
+            Star 0
+          </Link>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center text-muted-foreground gap-2"
