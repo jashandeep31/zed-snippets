@@ -96,7 +96,7 @@ const snippetsMdxPreProcessor = async () => {
         Object.keys(snippets).forEach((key) => {
           newMdx += `\n
 \`\`\`json title="${snippets[key].prefix}"
-${JSON.stringify({ [snippets[key].prefix]: snippets[key] }, null, 2)}
+${JSON.stringify({ [snippets[key].description]: snippets[key] }, null, 2)}
 \`\`\``;
         });
 
