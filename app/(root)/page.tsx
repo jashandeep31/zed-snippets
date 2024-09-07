@@ -1,7 +1,5 @@
 import React from "react";
 import { Lora } from "next/font/google";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Code } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -23,10 +21,6 @@ export default async function page() {
           <p className="text-muted-foreground mt-7">
             Get you custom code snippets for zed code editor.
           </p>
-          <div className="flex items-center gap-2 mt-8">
-            <Input className="bg-background" />{" "}
-            <Button variant={"outline"}>Search</Button>
-          </div>
         </div>
       </section>
       <section className=" container mt-6 md:mt-12 lg:mt-24">

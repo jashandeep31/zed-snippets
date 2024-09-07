@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { Inter } from "next/font/google";
+import { SearchBoxProvider } from "@/context/search-box-context";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Zed Snippets: Code Marketplace for Developers | Create & Share",
@@ -18,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <SearchBoxProvider>{children}</SearchBoxProvider>
+      </body>
     </html>
   );
 }

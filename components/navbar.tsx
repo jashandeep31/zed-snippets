@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
+// import { usePathname } from "next/navigation";
+import React, { useContext } from "react";
 import NavbarConverterMenu from "./navbar-conver-menu";
 import { Search } from "lucide-react";
+import { searchBoxContext } from "@/context/search-box-context";
 
 const Navbar = () => {
-  const pathname = usePathname();
-  console.log(pathname);
+  const { setIsOpen, isOpen } = useContext(searchBoxContext);
+
   return (
     <div className="border-primary/50 border-dashed border-b py-3 ">
       <div className="container flex items-center justify-between">
@@ -33,7 +34,10 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center text-muted-foreground gap-2">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex items-center text-muted-foreground gap-2"
+          >
             <Search size={14} className="text-muted-foreground" />
             <span className="text-xs text-muted-foreground border rounded  px-1 font-medium">
               crtl + k

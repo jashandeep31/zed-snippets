@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,6 +12,7 @@ import Flexsearch from "flexsearch";
 import { searchQueries } from "@/lib/search-queries";
 import { useRouter } from "next/navigation";
 import { Code2, FileIcon } from "lucide-react";
+import { searchBoxContext } from "@/context/search-box-context";
 
 const searchIndex = new Flexsearch.Index({
   tokenize: "full",
@@ -22,25 +23,30 @@ searchQueries.forEach((item, index) => {
 
 const SearchBoxDialog = () => {
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
+
+  const { isOpen, setIsOpen } = useContext(searchBoxContext);
+
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
+        setIsOpen(!isOpen);
       }
     };
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, []);
+  }, [isOpen, setIsOpen]);
 
-  const runCommand = React.useCallback((command: () => unknown) => {
-    setOpen(false);
-    command();
-  }, []);
+  const runCommand = React.useCallback(
+    (command: () => unknown) => {
+      setIsOpen(false);
+      command();
+    },
+    [setIsOpen],
+  );
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
+    <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
